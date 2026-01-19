@@ -29,30 +29,31 @@ Explanation:
 """
 
 
-def first_stable_character(s):
-    """
-    Find the first stable character in the string.
+def first_stable_character(s: str):
+    if not s:
+        return None
 
-    A character is stable if:
-    1. It appears at least twice
-    2. All occurrences are in one continuous group
+    freq = {}
+    for ch in s:
+        freq[ch] = freq.get(ch, 0) + 1
 
-    Args:
-        s (str): Input string
+    i = 0
+    n = len(s)
 
-    Returns:
-        str or None: First stable character, or None if no stable character exists
+    while i < n:
+        current_char = s[i]
+        block_length = 0
 
-    Examples:
-        >>> first_stable_character("abccba")
-        'c'
-        >>> first_stable_character("abc")
-        None
-        >>> first_stable_character("a")
-        None
-    """
-    # TODO: Implement your solution here
-    pass
+        while i + block_length < n and s[i + block_length] == current_char:
+            block_length += 1
+
+        if freq[current_char] == block_length:
+            return current_char
+
+        i += block_length
+
+    return None
+
 
 
 if __name__ == "__main__":
